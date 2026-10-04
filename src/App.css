@@ -1,0 +1,240 @@
+/* Main App Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Background pattern */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(254, 226, 226, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* App wrapper */
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 80px; /* Space for mobile nav */
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  background: linear-gradient(180deg, #1a0a0a 0%, #0A0A0A 100%);
+  min-height: 100vh;
+}
+
+/* Section backgrounds */
+.section:nth-child(even) .glass-card {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.section:nth-child(odd) .glass-card {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* Smooth section transitions */
+.section {
+  position: relative;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-red);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-red-dark);
+}
+
+/* Selection color */
+::selection {
+  background: var(--primary-red);
+  color: white;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--primary-red);
+  outline-offset: 2px;
+}
+
+/* Dark mode overrides */
+.dark body {
+  background: #050505;
+  color: #E5E7EB;
+}
+
+.dark .glass-card {
+  background: rgba(30, 30, 30, 0.85);
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
+.dark .form-input {
+  background: #1a1a1a;
+  color: #E5E7EB;
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
+.dark .certificate-item {
+  background: #1a1a1a;
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+.dark .project-card {
+  background: #1a1a1a;
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+.dark .social-link {
+  background: #1a1a1a;
+  border-color: rgba(220, 38, 38, 0.4);
+  color: #9CA3AF;
+}
+
+.dark .view-all-btn {
+  background: #1a1a1a;
+  color: #E5E7EB;
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
+.dark .carousel-btn {
+  background: #1a1a1a;
+  color: #E5E7EB;
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
+.dark .tech-tag {
+  background: rgba(220, 38, 38, 0.15);
+  color: #FCA5A5;
+}
+
+.dark .stat-number {
+  color: #F9FAFB;
+}
+
+.dark .stat-label {
+  color: #9CA3AF;
+}
+
+.dark .hero-title {
+  color: #F9FAFB;
+}
+
+.dark .hero-description {
+  color: #D1D5DB;
+}
+
+.dark .about-text h3,
+.dark .contact-info h3 {
+  color: #F9FAFB;
+}
+
+.dark .about-text p,
+.dark .contact-info p {
+  color: #D1D5DB;
+}
+
+.dark .certificate-name {
+  color: #F9FAFB;
+}
+
+.dark .certificate-provider {
+  color: #9CA3AF;
+}
+
+.dark .project-title {
+  color: #F9FAFB;
+}
+
+.dark .project-desc {
+  color: #D1D5DB;
+}
+
+.dark .skill-label {
+  color: #D1D5DB;
+}
+
+.dark .ring-text {
+  color: #F9FAFB;
+}
+
+.dark .section-title {
+  color: #F9FAFB;
+}
+
+.dark .footer {
+  border-top-color: rgba(220, 38, 38, 0.2);
+  color: #6B7280;
+}
+
+/* Mobile bottom nav fix */
+@media (max-width: 768px) {
+  .app-wrapper {
+    padding-bottom: 80px;
+  }
+  
+  .navbar.mobile-bottom-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    z-index: var(--z-fixed);
+    padding: var(--space-sm) var(--space-xs);
+    justify-content: space-around;
+  }
+  
+  .navbar.desktop-nav {
+    display: none !important;
+  }
+  
+  .navbar.mobile-bottom-nav .nav-link {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.65rem;
+  }
+  
+  .navbar.mobile-bottom-nav .nav-link svg {
+    width: 18px;
+    height: 18px;
+  }
+}
