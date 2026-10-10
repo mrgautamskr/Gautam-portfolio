@@ -2,25 +2,61 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Kirti — BSc Mathematics Student & Aspiring Data Analyst Portfolio" />
-    <meta name="theme-color" content="#DC2626" />
-    
-    <!-- Advanced Security Headers -->
+    <meta name="description" content="Gautam Sarkar — BSc Mathematics & Statistics student, Aspiring Data Analyst. Portfolio showcasing projects, skills, and journey." />
+
+    <!-- Security Meta Tags -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="DENY" />
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-    <meta name="referrer" content="no-referrer" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; frame-src 'none'; object-src 'none';" />
-    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), screen-wake-lock=()" />
-    
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, proxy-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <title>Gautam Sarkar — Portfolio</title>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-    <title>Kirti — Data Analyst Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Allura&display=swap" rel="stylesheet" />
+
+    <!-- Fallback Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%23111'/><text x='50' y='68' font-family='serif' font-size='50' font-weight='bold' fill='white' text-anchor='middle'>GS</text></svg>" />
+
+    <!-- Anti-Right-Click on Images/Videos -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('contextmenu', function (e) {
+          if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+            e.preventDefault();
+            return false;
+          }
+        });
+      });
+    </script>
+
+    <!-- Inline Security Styles -->
     <style>
-      body { margin: 0; background: #0A0A0A; }
+      /* Prevent image highlight on long press (mobile) */
+      img, video {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+        pointer-events: auto;
+      }
+
+      /* Remove default video controls download button */
+      video::-webkit-media-controls-enclosure {
+        overflow: hidden;
+      }
+      video::-webkit-media-controls-panel {
+        width: calc(100% + 30px);
+      }
+
+      /* Hide download button in Firefox */
+      video {
+        controlslist: nodownload;
+      }
     </style>
   </head>
   <body>

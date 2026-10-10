@@ -1,367 +1,177 @@
-import React from 'react';
-import { HiDownload, HiMail } from 'react-icons/hi';
-import { personalInfo } from '../data/personal';
+import { ChevronDown } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
-  const downloadCV = () => {
-    const link = document.createElement('a');
-    link.href = '/cv/Kirti-CV.pdf';
-    link.download = 'Kirti_CV.pdf';
-    link.click();
-  };
-
   return (
-    <section
-      id="home"
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '6rem 0 4rem 0',
-        overflow: 'hidden'
-      }}
-    >
-      {/* Floating Decorations */}
-      <div style={{
-        position: 'absolute',
-        width: 80, height: 80,
-        border: '2px solid rgba(220,38,38,0.15)',
-        borderRadius: '50%',
-        top: '15%', left: '8%',
-        animation: 'float 6s ease-in-out infinite',
-        pointerEvents: 'none'
-      }} />
-      <div style={{
-        position: 'absolute',
-        width: 40, height: 40,
-        border: '2px solid rgba(220,38,38,0.12)',
-        borderRadius: '8px',
-        top: '25%', right: '12%',
-        transform: 'rotate(45deg)',
-        animation: 'float 5s ease-in-out infinite 1s',
-        pointerEvents: 'none'
-      }} />
-      <div style={{
-        position: 'absolute',
-        width: 8, height: 8,
-        background: 'rgba(220,38,38,0.3)',
-        borderRadius: '50%',
-        bottom: '30%', left: '15%',
-        animation: 'pulse 3s ease-in-out infinite',
-        pointerEvents: 'none'
-      }} />
-
-      <div className="container" style={{ width: '100%', position: 'relative', zIndex: 1 }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '3rem',
-          alignItems: 'center',
-          maxWidth: '1100px',
-          margin: '0 auto'
-        }}>
-          {/* LEFT: DP Circle */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
-            minHeight: '400px'
-          }}>
-            {/* DP Container — sab kuch iske andar centered */}
+    <section id="home" style={{
+      padding: '100px 40px 40px', minHeight: '100vh',
+      display: 'flex', alignItems: 'center', justifyContent: 'center'
+    }}>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        style={{
+          border: '1.5px solid #222', borderRadius: '2px', padding: '40px 48px 32px',
+          maxWidth: '1280px', width: '100%', background: '#fff', position: 'relative'
+        }}
+      >
+        {/* Top Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          style={{
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            marginBottom: '48px', flexWrap: 'wrap', gap: '16px'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
             <div style={{
-              position: 'relative',
-              width: '320px',
-              height: '320px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              {/* Soft pink-red radial glow — sabse peeche */}
-              <div style={{
-                position: 'absolute',
-                width: '100%',
-                height: '100%',
-                background: 'radial-gradient(circle, #FECACA 0%, #FEE2E2 35%, #FECDD3 55%, rgba(254,202,202,0.3) 75%, transparent 90%)',
-                borderRadius: '50%',
-                animation: 'float 6s ease-in-out infinite',
-                zIndex: 0
-              }} />
-
-              {/* Outer decorative ring */}
-              <div style={{
-                position: 'absolute',
-                width: '90%',
-                height: '90%',
-                borderRadius: '50%',
-                border: '2px solid rgba(220,38,38,0.2)',
-                animation: 'float 6s ease-in-out infinite 0.5s',
-                zIndex: 1
-              }} />
-
-              {/* DP Image Circle */}
-              <div style={{
-                position: 'relative',
-                width: '80%',
-                height: '80%',
-                borderRadius: '50%',
-                overflow: 'hidden',
-                border: '4px solid rgba(255,255,255,0.4)',
-                boxShadow: '0 0 40px rgba(220,38,38,0.3), 0 0 80px rgba(254,202,202,0.2)',
-                animation: 'float 4s ease-in-out infinite',
-                zIndex: 2,
-                background: 'linear-gradient(135deg, #FECACA, #FEE2E2)'
-              }}>
-                <img
-                  src="/assets/dp.jpg"
-                  alt="Kirti"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center top'
-                  }}
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    e.currentTarget.parentElement.innerHTML = `
-                      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:6rem;background:linear-gradient(135deg,#DC2626,#B91C1C);">
-                        ‍💻
-                      </div>
-                    `;
-                  }}
-                />
-              </div>
-
-              {/* Floating code snippet */}
-              <div style={{
-                position: 'absolute',
-                bottom: '10%',
-                right: '-5%',
-                background: 'rgba(10,10,10,0.85)',
-                color: '#10B981',
-                padding: '0.4rem 0.7rem',
-                borderRadius: '8px',
-                fontFamily: 'JetBrains Mono, monospace',
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
-                border: '1px solid rgba(250,204,21,0.3)',
-                animation: 'float 3s ease-in-out infinite 1s',
-                zIndex: 3,
-                backdropFilter: 'blur(10px)',
-                whiteSpace: 'nowrap'
-              }}>
-                {'<Data />'}
-              </div>
-
-              {/* Small floating dot */}
-              <div style={{
-                position: 'absolute',
-                top: '15%',
-                left: '5%',
-                width: 10, height: 10,
-                background: 'rgba(220,38,38,0.7)',
-                borderRadius: '50%',
-                animation: 'pulse 2s ease-in-out infinite',
-                zIndex: 3
-              }} />
-            </div>
+              width: '36px', height: '36px', background: '#111', color: '#fff',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'serif', fontSize: '0.8rem', fontWeight: '700', borderRadius: '2px'
+            }}>GS</div>
+            <span style={{ fontSize: '0.75rem', fontWeight: '600', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+              GAUTAM SARKAR
+            </span>
           </div>
-
-          {/* RIGHT: Content */}
           <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start'
+            fontSize: '0.7rem', fontWeight: '500', letterSpacing: '0.15em',
+            textTransform: 'uppercase', color: '#555'
           }}>
-            {/* Available badge */}
-            {personalInfo.available && (
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.4rem 1rem',
-                background: 'rgba(254,226,226,0.15)',
-                color: '#FCA5A5',
-                borderRadius: '9999px',
-                fontSize: '0.8rem',
-                fontWeight: 500,
-                border: '1px solid rgba(220,38,38,0.3)',
-                marginBottom: '1.25rem',
-                backdropFilter: 'blur(10px)'
-              }}>
-                <span style={{
-                  width: 8, height: 8, borderRadius: '50%',
-                  background: '#DC2626',
-                  animation: 'pulse 2s ease-in-out infinite',
-                  boxShadow: '0 0 8px rgba(220,38,38,0.6)',
-                  display: 'inline-block'
-                }} />
-                Available for work
-              </div>
-            )}
+            TURNING DATA INTO MEANINGFUL INSIGHTS.
+          </div>
+        </motion.div>
 
-            {/* Title */}
-            <h1 style={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-              fontWeight: 800,
-              color: '#F9FAFB',
-              lineHeight: 1.15,
-              marginBottom: '0.5rem',
-              letterSpacing: '-0.02em'
-            }}>
-              Hi, I'm{' '}
-              <span style={{ color: '#DC2626' }}>
-                {personalInfo.name}
-              </span>
-            </h1>
-
-            {/* Tagline */}
-            <p style={{
-              fontFamily: 'JetBrains Mono, monospace',
-              fontSize: 'clamp(0.95rem, 2vw, 1.2rem)',
-              color: '#DC2626',
-              fontWeight: 500,
-              marginBottom: '1.25rem'
-            }}>
-              {personalInfo.tagline}
+        {/* Main Content */}
+        <div style={{
+          position: 'relative', minHeight: '520px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center'
+        }}>
+          {/* Left Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            style={{
+              position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)',
+              zIndex: 3, display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '240px'
+            }}
+          >
+            <p style={{ fontSize: '0.82rem', color: '#555', lineHeight: '1.7' }}>
+              A BSc Mathematics & Statistics student exploring the world through data, logic and curiosity.
             </p>
-
-            {/* Description */}
             <p style={{
-              fontSize: '0.95rem',
-              color: '#D1D5DB',
-              lineHeight: 1.7,
-              maxWidth: '500px',
-              marginBottom: '1.75rem'
+              fontSize: '0.78rem', fontWeight: '500', letterSpacing: '0.1em',
+              color: '#555', display: 'flex', alignItems: 'center', gap: '12px'
             }}>
-              {personalInfo.description}
+              Aspiring Data Analyst
+              <span style={{ display: 'inline-block', width: '40px', height: '1px', background: '#e0e0e0' }} />
             </p>
-
-            {/* Stats */}
-            <div style={{
-              display: 'flex',
-              gap: '2rem',
-              marginBottom: '2rem',
-              flexWrap: 'wrap'
-            }}>
-              {personalInfo.stats.map((stat, i) => (
-                <div key={i} style={{ textAlign: 'center', minWidth: '80px' }}>
-                  <div style={{
-                    fontFamily: 'Poppins, sans-serif',
-                    fontSize: 'clamp(1.5rem, 2.5vw, 2rem)',
-                    fontWeight: 800,
-                    color: '#F9FAFB',
-                    lineHeight: 1
-                  }}>
-                    {stat.number}
-                  </div>
-                  <div style={{
-                    fontSize: '0.75rem',
-                    color: '#9CA3AF',
-                    marginTop: '0.35rem',
-                    fontWeight: 500
-                  }}>
-                    {stat.label}
-                  </div>
-                </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '4px' }}>
+              {['Mathematics', 'Statistics', 'Data Science'].map((s) => (
+                <span key={s} style={{
+                  padding: '4px 14px', fontSize: '0.68rem', fontWeight: '500',
+                  border: '1px solid #e0e0e0', borderRadius: '20px', color: '#555', background: '#fff'
+                }}>{s}</span>
               ))}
             </div>
+          </motion.div>
 
-            {/* CTA Buttons */}
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <button
-                onClick={downloadCV}
+          {/* Background Name - MOVED UP */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            style={{
+              position: 'absolute', left: '50%', top: '28%', transform: 'translate(-50%, -50%)',
+              zIndex: 1, textAlign: 'center', pointerEvents: 'none', userSelect: 'none'
+            }}
+          >
+            <span style={{
+              fontFamily: 'serif', fontSize: 'clamp(5rem, 12vw, 10rem)', fontWeight: '900',
+              color: '#111', letterSpacing: '0.1em', lineHeight: '0.9', whiteSpace: 'nowrap'
+            }}>GAUTAM</span>
+            <span style={{
+              fontFamily: 'sans-serif', fontSize: 'clamp(1rem, 2.5vw, 1.8rem)',
+              fontWeight: '600', letterSpacing: '0.5em', textTransform: 'uppercase',
+              color: '#111', display: 'block', marginTop: '8px'
+            }}>Sarkar</span>
+          </motion.div>
+
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            style={{
+              position: 'relative', zIndex: 2,
+              display: 'flex', justifyContent: 'center', alignItems: 'flex-end'
+            }}
+          >
+            <div style={{ position: 'relative', width: '100%', maxWidth: '520px' }}>
+              <img
+                src="/images/portrait.png"
+                alt="Gautam Sarkar"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.85rem 1.75rem',
-                  background: 'linear-gradient(135deg, #DC2626, #B91C1C)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '9999px',
-                  fontWeight: 600,
-                  fontSize: '0.95rem',
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 20px rgba(220,38,38,0.4)',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'Inter, sans-serif'
+                  width: '100%', height: 'auto', maxHeight: '600px',
+                  objectFit: 'contain', objectPosition: 'bottom center',
+                  filter: 'drop-shadow(0 12px 32px rgba(0,0,0,0.15))'
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(220,38,38,0.5)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(220,38,38,0.4)';
-                }}
-              >
-                <HiDownload size={18} /> Download CV
-              </button>
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.85rem 1.75rem',
-                  background: 'transparent',
-                  color: '#DC2626',
-                  border: '2px solid #DC2626',
-                  borderRadius: '9999px',
-                  fontWeight: 600,
-                  fontSize: '0.95rem',
-                  textDecoration: 'none',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'Inter, sans-serif'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#DC2626';
-                  e.currentTarget.style.color = 'white';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'transparent';
-                  e.currentTarget.style.color = '#DC2626';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-              >
-                <HiMail size={18} /> Hire Me
-              </a>
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
             </div>
-          </div>
-        </div>
-      </div>
+          </motion.div>
 
-      {/* Mobile Responsive Styles */}
-      <style>{`
-        @media (max-width: 768px) {
-          #home > div > div {
-            grid-template-columns: 1fr !important;
-            text-align: center;
-          }
-          #home > div > div > div:last-child {
-            align-items: center !important;
-          }
-          #home > div > div > div:last-child p {
-            max-width: 100% !important;
-          }
-          #home > div > div > div:first-child {
-            min-height: 300px !important;
-          }
-          #home > div > div > div:first-child > div {
-            width: 250px !important;
-            height: 250px !important;
-          }
-        }
-      `}</style>
+          {/* Right Info */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            style={{
+              position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)',
+              zIndex: 3, display: 'flex', flexDirection: 'column', gap: '20px',
+              alignItems: 'flex-end', maxWidth: '220px'
+            }}
+          >
+            <p style={{
+              fontFamily: 'cursive', fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+              color: '#111', lineHeight: '1'
+            }}>Gautam Sarkar</p>
+            <blockquote style={{
+              fontSize: '0.82rem', color: '#555', lineHeight: '1.7',
+              textAlign: 'right', fontStyle: 'italic'
+            }}>
+              <span style={{
+                fontFamily: 'serif', fontSize: '2rem', color: '#e0e0e0',
+                display: 'block', lineHeight: '1', marginBottom: '4px'
+              }}>&ldquo;</span>
+              Learn the rules. Understand the data. Build something better.
+            </blockquote>
+          </motion.div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1 }}
+          style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
+            marginTop: '40px', color: '#888', fontSize: '0.65rem',
+            letterSpacing: '0.15em', textTransform: 'uppercase'
+          }}
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <ChevronDown size={18} />
+          </motion.div>
+          <span>Scroll Down</span>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

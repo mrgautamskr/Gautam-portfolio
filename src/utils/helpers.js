@@ -4,8 +4,8 @@ export const scrollToTop = () => {
 
 export const downloadCV = () => {
   const link = document.createElement('a');
-  link.href = '/cv/Kirti-CV.pdf';
-  link.download = 'Kirti_CV.pdf';
+  link.href = '/cv/Gautam-CV.pdf';
+  link.download = 'Gautam_CV.pdf';
   link.click();
 };
 

@@ -1,161 +1,169 @@
-import React from 'react';
-import { projects } from '../data/projects';
-import { HiExternalLink, HiCode } from 'react-icons/hi';
-
-const gradients = [
-  'linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)',
-  'linear-gradient(135deg, #10B981 0%, #047857 100%)',
-  'linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)',
-];
+import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Reveal from './Reveal';
 
 export default function Projects() {
-  return (
-    <section id="projects" className="section-padding">
-      <div className="container">
-        <div className="glass-card" style={{ padding: '2.5rem' }}>
-          <div style={{
-            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-            marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem'
-          }}>
-            <h2 className="section-title" style={{ marginBottom: 0 }}>
-              <span className="red-dot" /> My Creative Projects
-            </h2>
-            <button style={{
-              padding: '0.4rem 1rem',
-              border: '1.5px solid rgba(250,204,21,0.5)',
-              borderRadius: '9999px',
-              background: 'rgba(255,255,255,0.08)',
-              color: '#F9FAFB',
-              fontSize: '0.8rem', fontWeight: 600,
-              cursor: 'pointer', transition: 'all 0.3s ease',
-              fontFamily: 'Inter, sans-serif',
-              backdropFilter: 'blur(10px)'
-            }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(250,204,21,0.2)';
-                e.currentTarget.style.boxShadow = '0 0 15px rgba(250,204,21,0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              View All
-            </button>
-          </div>
+  const projects = [
+    {
+      name: 'College Schedule',
+      desc: 'College schedule manager with history, notifications and related student productivity features.',
+      tech: ['React', 'Supabase', 'Vite'],
+      thumbnail: '/projects/college-schedule.png',
+      demo: 'https://college-schedule-snowy.vercel.app/',
+      github: 'https://github.com/mrgautamskr/college-schedule'
+    },
+    {
+      name: 'Finora Finance',
+      desc: 'Personal expense tracking application concept for managing income, expenses, budgets, and monthly financial analytics.',
+      tech: ['React', 'Supabase', 'Vite'],
+      thumbnail: '/projects/finora-finance.png',
+      demo: 'https://finora-five-eta.vercel.app/',
+      github: 'https://github.com/mrgautamskr/Finora'
+    },
+    {
+      name: 'More Projects',
+      desc: 'Exciting new web development and data analysis projects are currently in progress and will be added here soon.',
+      tech: ['Coming Soon'],
+      thumbnail: '',
+      demo: '',
+      github: 'https://github.com/mrgautamskr'
+    },
+  ];
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '1.5rem'
-          }}>
-            {projects.map((project, i) => (
-              <div key={i} style={{
-                background: 'rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(15px)',
-                border: '1.5px solid rgba(250,204,21,0.35)',
-                borderRadius: '16px',
-                overflow: 'hidden',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 0 15px rgba(250,204,21,0.1)',
-                display: 'flex', flexDirection: 'column'
-              }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-6px)';
-                  e.currentTarget.style.boxShadow = '0 0 30px rgba(250,204,21,0.3), 0 12px 32px rgba(0,0,0,0.3)';
-                  e.currentTarget.style.borderColor = 'rgba(250,204,21,0.7)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 0 15px rgba(250,204,21,0.1)';
-                  e.currentTarget.style.borderColor = 'rgba(250,204,21,0.35)';
-                }}
-              >
-                <div style={{
-                  height: 180,
-                  background: gradients[i % gradients.length],
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '4rem', position: 'relative', overflow: 'hidden'
-                }}>
-                  <div style={{
-                    position: 'absolute', width: 100, height: 100,
-                    border: '2px solid rgba(255,255,255,0.2)',
-                    borderRadius: '50%', top: -30, right: -30
-                  }} />
-                  <div style={{
-                    position: 'absolute', width: 60, height: 60,
-                    border: '2px solid rgba(255,255,255,0.15)',
-                    borderRadius: '50%', bottom: -20, left: -20
-                  }} />
-                  <span style={{ position: 'relative', zIndex: 1, filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))' }}>
-                    {project.emoji}
-                  </span>
+  const container = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.12 } }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 35 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } }
+  };
+
+  const tagColors = {
+    React: { bg: '#e8f4f8', color: '#2d8cf0', border: '#b8ddf0' },
+    Supabase: { bg: '#e8f8f0', color: '#3ecf8e', border: '#b8f0d8' },
+    Vite: { bg: '#f0edff', color: '#646cff', border: '#d0ccff' },
+    'Coming Soon': { bg: '#f5f5f5', color: '#888', border: '#e0e0e0' },
+  };
+
+  return (
+    <section id="projects" style={{ padding: '80px 40px', borderTop: '1px solid #e0e0e0' }}>
+      <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <Reveal>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '20px', marginBottom: '48px' }}>
+            <div>
+              <p style={{ fontSize: '0.75rem', color: '#888', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                03. <span style={{ display: 'inline-block', width: '40px', height: '1px', background: '#e0e0e0' }} />
+              </p>
+              <h2 style={{ fontFamily: 'serif', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: '700', marginBottom: '8px' }}>My Works</h2>
+              <p style={{ fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#888' }}>
+                Some of my projects, websites and important works.
+              </p>
+            </div>
+            <div style={{ maxWidth: '320px' }}>
+              <p style={{ fontSize: '0.85rem', color: '#555', lineHeight: '1.7' }}>
+                Here are some of the projects I have built or worked on. Each project is a step in my learning journey towards becoming a better Data Analyst and Developer.
+              </p>
+            </div>
+          </div>
+        </Reveal>
+
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.15 }}
+          style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px', marginBottom: '40px' }}
+        >
+          {projects.map((p) => (
+            <motion.article
+              key={p.name}
+              variants={item}
+              whileHover={{ y: -8, boxShadow: '0 8px 30px rgba(0,0,0,0.1)' }}
+              style={{ border: '1px solid #e0e0e0', borderRadius: '4px', overflow: 'hidden', background: '#fff' }}
+            >
+              {/* Cover Image */}
+              <div style={{ height: '180px', background: '#fafafa', overflow: 'hidden', position: 'relative' }}>
+                {p.thumbnail ? (
+                  <img
+                    src={p.thumbnail}
+                    alt={`${p.name} screenshot`}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.5s ease'
+                    }}
+                    onMouseEnter={(e) => { e.target.style.transform = 'scale(1.08)'; }}
+                    onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.parentElement.style.display = 'flex';
+                      e.target.parentElement.style.alignItems = 'center';
+                      e.target.parentElement.style.justifyContent = 'center';
+                      e.target.parentElement.style.color = '#888';
+                      e.target.parentElement.style.fontSize = '0.8rem';
+                      e.target.parentElement.textContent = p.name;
+                    }}
+                  />
+                ) : (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#888', fontSize: '0.8rem' }}>
+                    {p.name}
+                  </div>
+                )}
+              </div>
+
+              {/* Card Body */}
+              <div style={{ padding: '20px' }}>
+                <h3 style={{ fontFamily: 'serif', fontSize: '1.1rem', fontWeight: '700', marginBottom: '8px' }}>{p.name}</h3>
+                <p style={{ fontSize: '0.8rem', color: '#555', lineHeight: '1.6', marginBottom: '12px' }}>{p.desc}</p>
+
+                {/* Tech Tags */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '16px' }}>
+                  {p.tech.map((t) => {
+                    const colors = tagColors[t] || { bg: '#fafafa', color: '#555', border: '#e0e0e0' };
+                    return (
+                      <span key={t} style={{
+                        padding: '4px 14px',
+                        fontSize: '0.7rem',
+                        fontWeight: '500',
+                        borderRadius: '20px',
+                        border: `1px solid ${colors.border}`,
+                        background: colors.bg,
+                        color: colors.color,
+                        transition: 'all 0.2s ease'
+                      }}>{t}</span>
+                    );
+                  })}
                 </div>
 
-                <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <h4 style={{
-                    fontFamily: 'Poppins, sans-serif', fontWeight: 700,
-                    fontSize: '1.05rem', marginBottom: '0.5rem',
-                    color: '#F9FAFB', textShadow: '0 2px 6px rgba(0,0,0,0.5)'
-                  }}>
-                    {project.title}
-                  </h4>
-                  <p style={{
-                    fontSize: '0.85rem', color: '#D1D5DB',
-                    lineHeight: 1.6, marginBottom: '1rem', flex: 1,
-                    textShadow: '0 1px 3px rgba(0,0,0,0.4)'
-                  }}>
-                    {project.description}
-                  </p>
-
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1rem' }}>
-                    {project.tags.map((tag, j) => (
-                      <span key={j} style={{
-                        padding: '0.25rem 0.65rem',
-                        background: 'rgba(250,204,21,0.12)',
-                        color: '#FCD34D',
-                        borderRadius: '8px',
-                        fontSize: '0.72rem', fontWeight: 600,
-                        border: '1px solid rgba(250,204,21,0.3)'
-                      }}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div style={{
-                    display: 'flex', gap: '1rem',
-                    paddingTop: '0.75rem',
-                    borderTop: '1px solid rgba(250,204,21,0.15)'
-                  }}>
-                    <a href={project.liveUrl} style={{
-                      display: 'inline-flex', alignItems: 'center', gap: '4px',
-                      fontSize: '0.8rem', fontWeight: 600,
-                      color: '#FCD34D', textDecoration: 'none',
-                      transition: 'color 0.2s ease'
-                    }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = '#FDE68A'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#FCD34D'}
-                    >
-                      <HiExternalLink size={14} /> Live Demo
+                {/* Action Buttons */}
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  {p.demo && (
+                    <a href={p.demo} target="_blank" rel="noopener noreferrer" style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '6px',
+                      padding: '6px 16px', fontSize: '0.72rem', fontWeight: '500',
+                      background: '#111', color: '#fff', borderRadius: '4px',
+                      textDecoration: 'none', transition: 'all 0.2s ease'
+                    }}>
+                      <ExternalLink size={13} /> Live Demo
                     </a>
-                    <a href={project.githubUrl} style={{
-                      display: 'inline-flex', alignItems: 'center', gap: '4px',
-                      fontSize: '0.8rem', fontWeight: 600,
-                      color: '#D1D5DB', textDecoration: 'none',
-                      transition: 'color 0.2s ease'
-                    }}
-                      onMouseEnter={(e) => e.currentTarget.style.color = '#FCD34D'}
-                      onMouseLeave={(e) => e.currentTarget.style.color = '#D1D5DB'}
-                    >
-                      <HiCode size={14} /> GitHub
-                    </a>
-                  </div>
+                  )}
+                  <a href={p.github} target="_blank" rel="noopener noreferrer" style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '6px',
+                    padding: '6px 16px', fontSize: '0.72rem', fontWeight: '500',
+                    background: 'transparent', color: '#111',
+                    border: '1px solid #111', borderRadius: '4px',
+                    textDecoration: 'none', transition: 'all 0.2s ease'
+                  }}>
+                    <Github size={13} /> GitHub
+                  </a>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </motion.article>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

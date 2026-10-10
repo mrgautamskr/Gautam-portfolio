@@ -1,52 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { HiHome, HiUser, HiCode, HiBadgeCheck, HiLightBulb, HiMail, HiMenu, HiX, HiPhotograph } from 'react-icons/hi';
-
-const navItems = [
-  { id: 'home', label: 'Home', icon: HiHome },
-  { id: 'about', label: 'About', icon: HiUser },
-  { id: 'skills', label: 'Skills', icon: HiCode },
-  { id: 'certificates', label: 'Certificates', icon: HiBadgeCheck },
-  { id: 'projects', label: 'Projects', icon: HiLightBulb },
-  { id: 'gallery', label: 'Gallery', icon: HiPhotograph }, // ✅ ADD THIS
-  { id: 'contact', label: 'Contact', icon: HiMail },
-];
+import { useState, useEffect } from 'react';
+import { Menu, X, Download } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Navbar() {
-  const [active, setActive] = useState('home');
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const navLinks = [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Gallery', href: '#gallery' },
+    { label: 'Journey', href: '#journey' },
+    { label: 'Contact', href: '#contact' },
+  ];
 
-  useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-  }, [mobileOpen]);
-
-  const handleClick = (id) => {
-    setActive(id);
-    setMobileOpen(false);
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  // Scroll spy
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navItems.map(item => document.getElementById(item.id));
+      setScrolled(window.scrollY > 50);
+      const sections = navLinks.map((l) => l.href.slice(1));
       for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i];
-        if (section) {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= 150) {
-            setActive(navItems[i].id);
+        const el = document.getElementById(sections[i]);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            setActiveSection(sections[i]);
             break;
           }
         }
@@ -56,193 +36,77 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (href) => {
+    setIsOpen(false);
+    const el = document.querySelector(href);
+    if (el) {
+      const offset = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <>
-      {/* Desktop Floating Navbar */}
-      {!isMobile && (
-        <nav style={{
-          position: 'sticky',
-          top: '1.5rem',
-          zIndex: 200,
-          display: 'flex',
-          justifyContent: 'center',
-          padding: '0 1rem',
-          marginBottom: '1rem'
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+      style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000,
+        background: 'rgba(255,255,255,0.95)', backdropFilter: 'blur(12px)',
+        borderBottom: scrolled ? '1px solid #e0e0e0' : '1px solid transparent',
+        boxShadow: scrolled ? '0 1px 3px rgba(0,0,0,0.06)' : 'none',
+        transition: 'all 0.3s ease'
+      }}
+    >
+      <div style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        height: '64px', padding: '0 40px', maxWidth: '1280px', margin: '0 auto'
+      }}>
+        <a href="#home" onClick={(e) => { e.preventDefault(); handleNavClick('#home'); }} style={{
+          display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', color: '#111'
         }}>
           <div style={{
-            background: 'linear-gradient(135deg, #DC2626 0%, #991B1B 100%)',
-            borderRadius: '9999px',
-            padding: '0.4rem 1rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.25rem',
-            boxShadow: '0 8px 30px rgba(220,38,38,0.35)',
-            border: '1px solid rgba(255,255,255,0.1)'
-          }}>
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = active === item.id;
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => handleClick(item.id)}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '2px',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '14px',
-                    color: isActive ? 'white' : 'rgba(255,255,255,0.75)',
-                    background: isActive ? 'rgba(255,255,255,0.2)' : 'transparent',
-                    border: 'none',
-                    fontSize: '0.7rem',
-                    fontWeight: isActive ? 600 : 500,
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    fontFamily: 'Inter, sans-serif',
-                    minWidth: 64
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-                      e.currentTarget.style.color = 'white';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = 'rgba(255,255,255,0.75)';
-                    }
-                  }}
-                >
-                  <Icon size={18} />
-                  <span>{item.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </nav>
-      )}
+            width: '32px', height: '32px', background: '#111', color: '#fff',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontFamily: 'serif', fontSize: '0.75rem', fontWeight: '700', borderRadius: '2px'
+          }}>GS</div>
+          <span style={{ fontSize: '0.8rem', fontWeight: '600', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            GAUTAM SARKAR
+          </span>
+        </a>
 
-      {/* Mobile Hamburger Button */}
-      {isMobile && (
-        <button
-          onClick={() => setMobileOpen(true)}
-          style={{
-            position: 'fixed',
-            top: '1rem',
-            right: '1rem',
-            zIndex: 500,
-            width: 44,
-            height: 44,
-            borderRadius: '50%',
-            background: 'rgba(220,38,38,0.95)',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 16px rgba(220,38,38,0.4)',
-            backdropFilter: 'blur(10px)'
-          }}
-          aria-label="Open menu"
-        >
-          <HiMenu size={22} />
+        <ul style={{ display: 'flex', gap: '32px', listStyle: 'none' }}>
+          {navLinks.map((link) => (
+            <li key={link.href}>
+              <a href={link.href} onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }} style={{
+                fontSize: '0.75rem', fontWeight: '500', letterSpacing: '0.06em',
+                textTransform: 'uppercase', color: activeSection === link.href.slice(1) ? '#111' : '#555',
+                textDecoration: 'none', borderBottom: activeSection === link.href.slice(1) ? '1.5px solid #111' : 'none',
+                paddingBottom: '4px', transition: 'all 0.2s ease'
+              }}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <a href="/resume/resume.pdf" download style={{
+          display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 18px',
+          fontSize: '0.7rem', fontWeight: '500', background: '#111', color: '#fff',
+          borderRadius: '4px', textDecoration: 'none'
+        }}>
+          <Download size={14} />
+          Download Resume
+        </a>
+
+        <button onClick={() => setIsOpen(!isOpen)} style={{
+          display: 'none', padding: '8px', color: '#111',
+          border: '1px solid #e0e0e0', borderRadius: '4px', alignItems: 'center', justifyContent: 'center'
+        }}>
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
-      )}
-
-      {/* Mobile Full-Screen Overlay */}
-      {isMobile && mobileOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0, left: 0, right: 0, bottom: 0,
-          background: 'rgba(10,10,10,0.97)',
-          backdropFilter: 'blur(20px)',
-          zIndex: 400,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '0.5rem',
-          animation: 'fadeInUp 0.3s ease'
-        }}>
-          <button
-            onClick={() => setMobileOpen(false)}
-            style={{
-              position: 'absolute',
-              top: '1rem',
-              right: '1rem',
-              width: 44,
-              height: 44,
-              borderRadius: '50%',
-              background: 'rgba(255,255,255,0.1)',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-            aria-label="Close menu"
-          >
-            <HiX size={22} />
-          </button>
-
-          <div style={{
-            width: 60,
-            height: 4,
-            background: '#DC2626',
-            borderRadius: 2,
-            marginBottom: '2rem'
-          }} />
-
-          {navItems.map((item, i) => {
-            const Icon = item.icon;
-            const isActive = active === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => handleClick(item.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  padding: '1rem 2rem',
-                  background: isActive ? 'rgba(220,38,38,0.15)' : 'transparent',
-                  border: isActive ? '1px solid rgba(220,38,38,0.3)' : '1px solid transparent',
-                  borderRadius: '16px',
-                  color: isActive ? '#DC2626' : 'white',
-                  fontSize: '1.25rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontFamily: 'Poppins, sans-serif',
-                  minWidth: 220,
-                  animation: `fadeInUp 0.4s ease ${i * 0.08}s both`
-                }}
-              >
-                <Icon size={22} />
-                <span>{item.label}</span>
-              </button>
-            );
-          })}
-
-          <div style={{
-            marginTop: '2rem',
-            padding: '1rem 2rem',
-            background: 'rgba(220,38,38,0.1)',
-            borderRadius: '16px',
-            border: '1px solid rgba(220,38,38,0.2)',
-            color: 'rgba(255,255,255,0.6)',
-            fontSize: '0.85rem',
-            fontFamily: 'Inter, sans-serif'
-          }}>
-            Kirti Portfolio © 2025
-          </div>
-        </div>
-      )}
-    </>
+      </div>
+    </motion.nav>
   );
 }

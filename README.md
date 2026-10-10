@@ -1,6 +1,6 @@
-# Kirti Portfolio
+# Gautam Portfolio
 
-A premium, modern personal portfolio website for Kirti — BSc 1st-year Mathematics student and aspiring Data Analyst.
+A premium, modern personal portfolio website for Gautam — BSc 1st-year Mathematics student and aspiring Data Analyst.
 
 ## Tech Stack
 - React 18

@@ -1,5 +1,5 @@
 export const personalInfo = {
-  name: "Kirti",
+  name: "Gautam",
   title: "Data Analyst",
   tagline: "< Data Analyst />",
   description:
@@ -12,5 +12,5 @@ export const personalInfo = {
     { number: "100%", label: "Passion & Dedication" },
   ],
   available: true,
-  email: "kirti@example.com",
+  email: "kngautam0p@gmail.com",
 };

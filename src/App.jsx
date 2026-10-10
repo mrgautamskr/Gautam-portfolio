@@ -1,44 +1,31 @@
-import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Certificates from './components/Certificates';
+import SocialLinks from './components/SocialLinks';
 import Projects from './components/Projects';
+import Skills from './components/Skills';
 import Gallery from './components/Gallery';
+import StudyJourney from './components/StudyJourney';
+import About from './components/About';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop';
-import VideoBackground from './components/VideoBackground';
-import Security from './components/Security'; // ✅ NEW
+import Security from './components/Security';
 
-function App() {
+export default function App() {
   return (
-    <div style={{
-      minHeight: '100vh',
-      position: 'relative',
-      background: '#0A0A0A'
-    }}>
-      {/* Security Protection — sabse upar */}
+    <div>
       <Security />
-
-      <VideoBackground />
-
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <Navbar />
+      <Navbar />
+      <main>
         <Hero />
-        <About />
-        <Skills />
-        <Certificates />
+        <SocialLinks />
         <Projects />
+        <Skills />
         <Gallery />
+        <StudyJourney />
+        <About />
         <Contact />
-        <Footer />
-      </div>
-
-      <ScrollToTop />
+      </main>
+      <Footer />
     </div>
   );
 }
-
-export default App;
